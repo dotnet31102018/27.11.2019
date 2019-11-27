@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="dataApp">
+
+<head>
+  <title>Clock!</title>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <script src="angular.js"></script>
+
+  <script src="bootstrap.js"></script>
+
+  <script src="person.js"></script>
+
+  <script src="input.ctrl.js"></script>
+</head>
+
+<body>
+
+  <hr>
+  <div ng-controller="inputCtrl">
+    <form>
+      <p>ID : <input type="number" name="idname" ng-model="p.id"></p>
+      <p>NAME : <input type="text" name="namename" ng-model="p.name"></p>
+      <p>BDATE : <input type="date" name="bdatename" ng-model="p.bdate"></p>
+      <p>EMAIL : <input type="email" name="emailname" ng-model="p.email"></p>
+      <button ng-click="sendit()">APPEND</button>
+    </form>
+    <br>
+    <br>
+    {{p}}
+  </div>
+
+
+  <br>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="dataApp">
+
+<head>
+  <title>Clock!</title>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <script src="angular.js"></script>
+
+  <script src="bootstrap.js"></script>
+
+  <script src="timeCtrl.ctrl.js"></script>
+</head>
+
+<body>
+
+  <div ng-controller="timeCtrl">
+
+    <p class="missing">MISSING</p>
+    <p class="ok">OK</p>
+    <hr>
+    <!-- { class-name: condition , class-name: condition , ... } -->
+    <p ng-class="{missing : name == '', ok : name != ''}">
+
+      <!-- "condition ? [true] 'class name' : [false] 'class name'"-->
+      NAME : <input type="text" ng-model="name" ng-class="name == '' ? 'missing' : 'ok'">
+    </p>
+
+    <!-- call function -- return value string is the class name -->
+    <p ng-class="getClass()">ID :
+
+      <!-- "condition ? [true] 'class name' : [false] 'class name'"-->
+      <input type="text" ng-model="id" ng-class="id == '' ? 'missing' : 'ok'">
+    </p>
+
+    <!-- "condition ? [true] 'class name' : [false] 'class name'"-->
+    <p>PHONE : <input type="text" ng-model="ph" ng-class="ph == '' ? 'missing' : 'ok'">
+    </p>
+
+  </div>
+
+
+  <br>
+</body>
+
+</html>
