@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>AJAX INTRODUCTION</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<style>
+  body {
+    margin-left: 10px;
+  }
+</style>
+
+<body>
+
+  <hr>
+  <br>
+  <p>ID: <input type="number" id="num"></p>
+  <br />
+  <button onclick="getuserJQ()">GET-JQUERY</button><br />
+  <button onclick="promise1()">Promise me ...</button>
+
+  <br>
+  <div id="result">
+
+  </div>
+  <table id="movies" border="1" style="padding:5px" cellpadding="7">
+
+  </table>
+  <script>
+    var debug
+    function promise1() {
+      const p1 = new Promise(
+        (resolve, reject) => {
+          alert('promise ...')
+          const x = prompt("enter value", "true")
+          if (x == "true")
+            resolve("true")
+          else
+            reject("false")
+        })
+      p1.then(
+        // resolve -- what to do in success [resolve]
+        (return_resolve) => {
+          console.log("success " + return_resolve)
+          return (resolve, reject) => {
+            alert('promise ...')
+            const x = prompt("enter value", "true")
+            if (x == "true")
+              resolve("true")
+            else
+              reject("false")
+          } // will jump to next then
+        }
+        // reject -- what to do in failed [reject]
+        , (return_reject) => {
+          console.log("failure " + return_reject)
+        })
+        .then(
+          // resolve -- what to do in success [resolve]
+          (return_resolve) => {
+            console.log("success" + " ha ha ha")
+          }
+          // reject -- what to do in failed [reject]
+          , (return_reject) => {
+            console.log("failure " + return_reject)
+          })
+
+    }
+    function getuserJQ() {
+
+      const promise1 = $.ajax({
+        url: `https://jsonplaceholder.typicode.com/todos/${$('#num').val()}`
+      })
+
+      promise1.then(function (data) {
+        console.log(data);
+        //$('#result').html(JSON.stringify(data))
+        var $movie_table = $("#movies")
+        $movie_table.append(`
+						< tr >
+						<th>userId</th>
+						<th>id</th>
+						<th>title</th>
+						<th>completed</th></tr >`);
+        if (Array.isArray(data)) {
+          $.each(data, function (i, movie) {
+            $movie_table.append(`<tr> <td> ${movie.userId} </td><td>${movie.id}</td><td>${movie.title}</td><td>${movie.completed}</td></tr>`)
+          })
+        }
+        else {
+          $movie_table.append(`<tr> <td> ${data.userId} </td><td>${data.id}</td><td>${data.title}</td><td>${data.completed}</td></tr>`)
+        }
+      }).fail(
+        // what to do on error
+        function (err) {
+          console.error(err)
+        }
+      )
+    }
+  </script>
+
+</body>
+
+</html>
